@@ -19,32 +19,8 @@ import { SettingsDropdownInput } from "../settings/settings-dropdown-input";
 import { I18nKey } from "#/i18n/declaration";
 import { useSettingsNavItems } from "#/hooks/use-settings-nav-items";
 import DocumentIcon from "#/icons/document.svg?react";
-
-interface TempButtonProps {
-  start: React.ReactNode;
-  onClick: () => void;
-}
-
-function TempButton({
-  start,
-  children,
-  onClick,
-}: React.PropsWithChildren<TempButtonProps>) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className="flex items-center gap-1 cursor-pointer hover:text-white w-full text-left"
-    >
-      {start}
-      {children}
-    </button>
-  );
-}
-
-function TempDivider() {
-  return <div className="h-[1px] w-full bg-[#5C5D62] my-1.5" />;
-}
+import { ContextMenuListItem } from "../context-menu/context-menu-list-item";
+import { ContextMenuSeparator } from "../context-menu/context-menu-separator";
 
 interface UserContextMenuProps {
   type: OrganizationUserRole;
@@ -140,31 +116,34 @@ export function UserContextMenu({ type, onClose }: UserContextMenuProps) {
 
         {!isUser && (
           <>
-            <TempButton
+            <ContextMenuListItem
               onClick={handleInviteMemberClick}
-              start={<IoPersonAddOutline className="text-white" size={14} />}
+              className="flex items-center gap-1 px-0 h-auto"
             >
+              <IoPersonAddOutline className="text-white" size={14} />
               {t(I18nKey.ORG$INVITE_ORGANIZATION_MEMBER)}
-            </TempButton>
+            </ContextMenuListItem>
 
-            <TempDivider />
+            <ContextMenuSeparator className="my-1.5 bg-[#5C5D62]" />
 
-            <TempButton
+            <ContextMenuListItem
               onClick={handleManageAccountClick}
-              start={<IoCardOutline className="text-white" size={14} />}
+              className="flex items-center gap-1 px-0 h-auto"
             >
+              <IoCardOutline className="text-white" size={14} />
               {t(I18nKey.ORG$MANAGE_ACCOUNT)}
-            </TempButton>
-            <TempButton
+            </ContextMenuListItem>
+            <ContextMenuListItem
               onClick={handleManageOrganizationMembersClick}
-              start={<IoPersonOutline className="text-white" size={14} />}
+              className="flex items-center gap-1 px-0 h-auto"
             >
+              <IoPersonOutline className="text-white" size={14} />
               {t(I18nKey.ORG$MANAGE_ORGANIZATION_MEMBERS)}
-            </TempButton>
+            </ContextMenuListItem>
           </>
         )}
 
-        <TempDivider />
+        <ContextMenuSeparator className="my-1.5 bg-[#5C5D62]" />
 
         {navItems.map((item) => (
           <Link
@@ -182,7 +161,7 @@ export function UserContextMenu({ type, onClose }: UserContextMenuProps) {
           </Link>
         ))}
 
-        <TempDivider />
+        <ContextMenuSeparator className="my-1.5 bg-[#5C5D62]" />
 
         <a
           href="https://docs.openhands.dev"
@@ -195,12 +174,13 @@ export function UserContextMenu({ type, onClose }: UserContextMenuProps) {
           {t(I18nKey.SIDEBAR$DOCS)}
         </a>
 
-        <TempButton
+        <ContextMenuListItem
           onClick={handleLogout}
-          start={<IoLogOutOutline className="text-white" size={14} />}
+          className="flex items-center gap-1 px-0 h-auto"
         >
+          <IoLogOutOutline className="text-white" size={14} />
           {t(I18nKey.ACCOUNT_SETTINGS$LOGOUT)}
-        </TempButton>
+        </ContextMenuListItem>
       </div>
     </div>
   );
